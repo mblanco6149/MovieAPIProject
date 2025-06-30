@@ -1,6 +1,14 @@
 const express = require('express');
 
-function movieRoutes(movieService) {
+module.exports = (movieController) => {
+  const router = express.Router();
+
+  router.get('/', (req, res) => movieController.getMovies(req, res));
+
+  return router;
+};
+
+/* function movieRoutes(movieService) {
   const router = express.Router();
 
   router.get('/', async (req, res) => {
@@ -15,4 +23,4 @@ function movieRoutes(movieService) {
 
   return router;
 }
-module.exports = movieRoutes;
+module.exports = movieRoutes; */

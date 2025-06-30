@@ -1,6 +1,15 @@
 const express = require('express');
 
-function favoriteRoutes(favoriteService) {
+module.exports = (favoriteController) => {
+  const router = express.Router();
+
+  router.post('/', (req, res) => favoriteController.addFavorite(req, res));
+  router.get('/', (req, res) => favoriteController.getFavorites(req, res));
+
+  return router;
+};
+
+/* function favoriteRoutes(favoriteService) {
   const router = express.Router();
 
   router.post('/', async (req, res) => {
@@ -23,4 +32,4 @@ function favoriteRoutes(favoriteService) {
 
   return router;
 }
-module.exports = favoriteRoutes;
+module.exports = favoriteRoutes; */

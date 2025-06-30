@@ -1,6 +1,34 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 
+
+module.exports = (authController) => {
+  const router = express.Router();
+
+  router.post('/register',
+    body('email').isEmail(),
+    body('password').isLength({ min: 6 }),
+    async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+      authController.register(req, res);
+    }
+  );
+
+  router.post('/login', async (req, res) => {
+    authController.login(req, res);
+  });
+
+  router.post('/logout', async (req, res) => {
+    authController.logout(req, res);
+  });
+
+  return router;
+
+};
+
+
+/* }
 function authRoutes(authService, revokedTokenRepository) {
   const router = express.Router();
 
@@ -38,4 +66,4 @@ function authRoutes(authService, revokedTokenRepository) {
 
   return router;
 }
-module.exports = authRoutes;
+module.exports = authRoutes; */
